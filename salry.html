@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+
+function calculateSalesTarget(startDate, endDate, monthlySalary) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
+  const totalWorkingDays = countWorkingDays(start, end);
+
+  const dailySalary = monthlySalary / totalWorkingDays;
+
+  const totalTarget = dailySalary * totalWorkingDays;
+
+  return {
+    dailySalary: dailySalary.toFixed(10),
+    totalTarget: totalTarget.toFixed(2)
+  };
+}
+
+function countWorkingDays(startDate, endDate) {
+  let count = 0;
+  let currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    const day = currentDate.getDay();
+
+    if (day !== 5) {
+      count++;
+    }
+
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return count;
+}
+
+const result = calculateSalesTarget('2023-01-01', '2023-02-02', 435);
+console.log('Daily Salary:', result.dailySalary);
+console.log('Total Target:', result.totalTarget);
+
+    </script>
+    
+</body>
+</html>
